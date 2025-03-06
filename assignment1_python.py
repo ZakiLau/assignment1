@@ -1,18 +1,24 @@
+##处理数据
 import pandas as pd
+##进行数据计算
 from numpy.linalg import solve
 import numpy as np
+##绘图
+import matplotlib.pyplot as plt         
+import matplotlib.dates as mdates 
 
-# Load the dataset
+# 加载数据
 df = pd.read_csv('~/Downloads/current.csv')
 
-# Clean the DataFrame by removing the row with transformation codes
+##刪除第一行
 df_cleaned = df.drop(index=0)
+##重置索引
 df_cleaned.reset_index(drop=True, inplace=True)
 
-## df_cleaned contains the data cleaned
+## 重命名列
 df_cleaned
 
-# Extract transformation codes
+# 轉換數據類型
 transformation_codes = df.iloc[0, 1:].to_frame().reset_index()
 transformation_codes.columns = ['Series', 'Transformation_Code']
 
@@ -27,7 +33,7 @@ transformation_codes.columns = ['Series', 'Transformation_Code']
 
 
 
-# Function to apply transformations based on the transformation code
+# 方程式
 def apply_transformation(series, code):
     if code == 1:
         # No transformation
@@ -62,8 +68,7 @@ df_cleaned.head()
 ############################################################################################################
 ## Plot transformed series
 ############################################################################################################
-import matplotlib.pyplot as plt         
-import matplotlib.dates as mdates       
+      
 
 series_to_plot = ['INDPRO', 'CPIAUCSL', 'TB3MS']         
 series_names = ['Industrial Production',                 
